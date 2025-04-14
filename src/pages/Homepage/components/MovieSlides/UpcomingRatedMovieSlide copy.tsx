@@ -25,7 +25,7 @@ const UpcomingMovieSlide = () => {
     <div className="p-4">
       <h2 className="text-2xl font-bold text-white mb-4">📅 출시 예정 영화</h2>
       <Swiper
-        className="!pl-4 !pr-4"
+        className="!px-10"
         modules={[Navigation, Autoplay, Pagination]}
         navigation
         pagination={{ clickable: true }}
@@ -40,7 +40,7 @@ const UpcomingMovieSlide = () => {
           320: { slidesPerView: 1.2 },
           640: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
+          1024: { slidesPerView: 5 },
         }}
       >
         {data?.data.results.map((movie) => (

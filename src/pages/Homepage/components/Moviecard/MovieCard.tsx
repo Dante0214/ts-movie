@@ -11,7 +11,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
   return (
     <div className="group relative w-full h-[360px] md:h-[400px] rounded-xl overflow-hidden shadow-lg cursor-pointer">
       <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm"
+        className="absolute inset-0 bg-contain bg-no-repeat bg-center transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm"
         style={{
           backgroundImage: `url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}')`,
         }}

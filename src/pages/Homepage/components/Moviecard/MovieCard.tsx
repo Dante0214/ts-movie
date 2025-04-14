@@ -8,7 +8,6 @@ interface MovieCardProps {
 const MovieCard = ({ movie }: MovieCardProps) => {
   const getGenreNamesByIds = useGenreStore((state) => state.getGenreNamesByIds);
   const genreNames = getGenreNamesByIds(movie.genre_ids);
-  console.log(genreNames);
   return (
     <div className="group relative w-full h-[360px] md:h-[400px] rounded-xl overflow-hidden shadow-lg cursor-pointer">
       <div

@@ -9,7 +9,7 @@ const fetchUpcomingMovies = () => {
 
 export const useUpcomingMoviesQuery = () => {
   return useQuery({
-    queryKey: ["movie-top-rated"],
+    queryKey: ["movie-upcoming-rated"],
     queryFn: fetchUpcomingMovies,
   });
 };

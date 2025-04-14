@@ -41,6 +41,7 @@ const TopRatedMovieSlide = () => {
           640: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 5 },
+          1920: { slidesPerView: 8 },
         }}
       >
         {data?.data.results.map((movie) => (

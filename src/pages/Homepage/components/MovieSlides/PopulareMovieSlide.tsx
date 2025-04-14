@@ -14,6 +14,7 @@ import { useNavigate } from "react-router";
 const PopulareMovieSlide = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
+  console.log(data);
   if (isLoading) {
     return <Loading />;
   }

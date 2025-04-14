@@ -8,9 +8,24 @@ export interface Movie {
   vote_average: number;
   popularity: number;
   adult: boolean;
+  genre_ids: number[];
 }
 
 export interface PopularMoviesResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface TopRatedMoviesResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface UpcomingMoviesResponse {
   page: number;
   results: Movie[];
   total_pages: number;

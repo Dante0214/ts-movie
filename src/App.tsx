@@ -5,11 +5,13 @@ import HomePage from "./pages/Homepage/HomePage";
 import MoviePage from "./pages/Movies/MoviePage";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
 import NotFoundPage from "./pages/NotFoundpage/NotFoundPage";
+import useGenres from "./hooks/useGenres";
 //홈페이지
 //영화전체 /movies
 //상세 /movies/:id
 
 function App() {
+  useGenres();
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>

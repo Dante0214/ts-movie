@@ -4,8 +4,9 @@ import { FaStar } from "react-icons/fa";
 
 interface MovieCardProps {
   movie: Movie;
+  alwaysShowDetails?: boolean;
 }
-const MovieCard = ({ movie }: MovieCardProps) => {
+const MovieCard = ({ movie, alwaysShowDetails = false }: MovieCardProps) => {
   const getGenreNamesByIds = useGenreStore((state) => state.getGenreNamesByIds);
   const genreNames = getGenreNamesByIds(movie.genre_ids);
   return (
@@ -28,8 +29,12 @@ const MovieCard = ({ movie }: MovieCardProps) => {
           absolute bottom-0 w-full 
           bg-gradient-to-t from-black/80 to-transparent p-4 
           z-10 transition-all duration-500
-          group-hover:translate-y-0 group-hover:opacity-100
-          md:translate-y-10 md:opacity-0
+          ${
+            alwaysShowDetails
+              ? "translate-y-0 opacity-100"
+              : "opacity-100 md:opacity-0 md:translate-y-10 group-hover:translate-y-0 group-hover:opacity-100"
+          }
+        
         `}
         title={movie.title}
       >

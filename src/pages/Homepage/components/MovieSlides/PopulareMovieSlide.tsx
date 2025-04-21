@@ -14,7 +14,6 @@ import { useNavigate } from "react-router";
 const PopulareMovieSlide = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  console.log(data);
   if (isLoading) {
     return <Loading />;
   }
@@ -48,7 +47,7 @@ const PopulareMovieSlide = () => {
         {data?.data.results.map((movie) => (
           <SwiperSlide key={movie.id}>
             <div
-              onClick={() => navigate(`/movie/${movie.id}`)}
+              onClick={() => navigate(`/movies/${movie.id}`)}
               className="cursor-pointer"
             >
               <MovieCard movie={movie} />

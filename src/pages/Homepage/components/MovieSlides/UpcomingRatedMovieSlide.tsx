@@ -47,7 +47,7 @@ const UpcomingMovieSlide = () => {
         {data?.data.results.map((movie) => (
           <SwiperSlide key={movie.id}>
             <div
-              onClick={() => navigate(`/movie/${movie.id}`)}
+              onClick={() => navigate(`/movies/${movie.id}`)}
               className="cursor-pointer"
             >
               <MovieCard movie={movie} />

@@ -27,13 +27,11 @@ const MoviePage = () => {
   };
   return (
     <div className="min-h-screen bg-black px-4 md:px-16 lg:px-32">
-      {/* 컨텐츠 영역 - 조건부 렌더링 */}
       {isLoading ? (
         <Loading />
       ) : isError ? (
         <Error message={error?.message} />
       ) : data?.data.results.length === 0 ? (
-        // 검색 결과 없음 메시지
         <div className="flex items-center justify-center py-16">
           <div className="bg-gray-800 rounded-lg p-8 max-w-md text-center shadow-lg">
             <h2 className="text-2xl font-bold text-red-500 mb-4">
@@ -58,11 +56,12 @@ const MoviePage = () => {
         <>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
             {data?.data.results.map((movie) => (
-              <MovieCard
+              <div
                 key={movie.id}
-                movie={movie}
-                alwaysShowDetails={true}
-              />
+                onClick={() => navigate(`/movies/${movie.id}`)}
+              >
+                <MovieCard movie={movie} alwaysShowDetails={true} />
+              </div>
             ))}
           </div>
 

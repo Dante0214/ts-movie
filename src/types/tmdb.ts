@@ -37,3 +37,33 @@ export interface SearchMoviesResponse {
   total_pages: number;
   total_results: number;
 }
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
+export interface MovieDetailResponse {
+  adult: boolean;
+  backdrop_path: string;
+
+  budget: number;
+  genres: Genre[];
+
+  id: number;
+
+  overview: string;
+  popularity: number;
+  poster_path: string;
+
+  release_date: string;
+  revenue: number;
+  runtime: number;
+
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}

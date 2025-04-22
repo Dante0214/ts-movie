@@ -5,8 +5,12 @@ import Error from "../components/Error";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { FaStar } from "react-icons/fa";
 import MovieReview from "./components/MovieReview";
+import MovieRecommendation from "./components/MovieRecommendation";
+import { useState } from "react";
 
 const MovieDetail = () => {
+  const [tab, setTab] = useState<"review" | "recommendation">("review");
+
   const { id } = useParams();
   if (!id) return <Error message="잘못된 접근입니다." />;
 
@@ -76,7 +80,7 @@ const MovieDetail = () => {
             <div>
               <span className="font-semibold text-gray-400">예산: </span>
               {movie?.budget ? (
-                <span>{new Intl.NumberFormat().format(movie.budget)} USD</span>
+                <span>$ {new Intl.NumberFormat().format(movie.budget)} </span>
               ) : (
                 "정보 없음"
               )}
@@ -86,7 +90,36 @@ const MovieDetail = () => {
               {movie.runtime}분
             </div>
           </div>
-          <MovieReview id={movie.id} />
+          <div>
+            <div className="flex gap-2 my-6">
+              <button
+                onClick={() => setTab("review")}
+                className={`px-4 py-2 rounded font-semibold transition cursor-pointer ${
+                  tab === "review"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                }`}
+              >
+                리뷰
+              </button>
+              <button
+                onClick={() => setTab("recommendation")}
+                className={`cursor-pointer px-4 py-2 rounded font-semibold transition ${
+                  tab === "recommendation"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                }`}
+              >
+                추천 영화
+              </button>
+            </div>
+
+            {tab === "review" ? (
+              <MovieReview id={movie.id} />
+            ) : (
+              <MovieRecommendation id={movie.id} />
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MovieReviewResponse } from "../../../types/tmdb";
+import { FaStar } from "react-icons/fa";
 
 interface Props {
   review: MovieReviewResponse;
@@ -20,8 +21,9 @@ const ReviewCard = ({ review }: Props) => {
           {review.author_details.username}
         </span>
         {review.author_details.rating !== null && (
-          <span className="text-sm text-yellow-500">
-            ⭐ {review.author_details.rating}/10
+          <span className="text-sm text-yellow-400 flex items-center gap-1">
+            <FaStar />
+            {review.author_details.rating}/10
           </span>
         )}
       </div>

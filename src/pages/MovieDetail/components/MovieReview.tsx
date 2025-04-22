@@ -28,11 +28,9 @@ const MovieReview = ({ id }: Props) => {
 
     return <Error message={finalMessage} />;
   }
-  console.log(review);
 
   return (
     <div className="mt-10">
-      <h2 className="text-2xl font-bold mb-4">리뷰</h2>
       {review.length === 0 ? (
         <p className="text-gray-400">등록된 리뷰가 없습니다</p>
       ) : (

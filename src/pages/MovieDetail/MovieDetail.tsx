@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { FaStar } from "react-icons/fa";
+import MovieReview from "./components/MovieReview";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -85,6 +86,7 @@ const MovieDetail = () => {
               {movie.runtime}분
             </div>
           </div>
+          <MovieReview id={movie.id} />
         </div>
       </div>
     </div>

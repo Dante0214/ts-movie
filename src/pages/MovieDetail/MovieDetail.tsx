@@ -10,8 +10,10 @@ import { useState } from "react";
 
 const MovieDetail = () => {
   const [tab, setTab] = useState<"review" | "recommendation">("review");
+  // const [isOpen, setIsOpen] = useState(false);
 
   const { id } = useParams();
+  // const numericId = parseInt(id);
   if (!id) return <Error message="잘못된 접근입니다." />;
 
   const {
@@ -20,6 +22,7 @@ const MovieDetail = () => {
     isError,
     error,
   } = useMovieDetailQuery({ id });
+
   console.log(movie);
   if (isLoading) {
     return <Loading />;
@@ -92,6 +95,18 @@ const MovieDetail = () => {
           </div>
           <div>
             <div className="flex gap-2 my-6">
+              {/* <button
+                className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+                onClick={() => setIsOpen(true)}
+              >
+                유튜브 보기
+              </button>
+
+              <YoutubeModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                movieId={trailer?.id}
+              /> */}
               <button
                 onClick={() => setTab("review")}
                 className={`px-4 py-2 rounded font-semibold transition cursor-pointer ${

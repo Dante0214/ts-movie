@@ -71,7 +71,7 @@ const MoviePage = () => {
               nextLabel={"→"}
               breakLabel={"..."}
               breakClassName="text-white"
-              pageCount={data?.data.total_pages ?? 0}
+              pageCount={500}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}

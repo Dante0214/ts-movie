@@ -99,3 +99,14 @@ export interface AuthorDetails {
   avatar_path?: string;
   rating: number;
 }
+export interface Trailer {
+  id: string;
+  name: string;
+  key: string;
+  site: string;
+  type: string;
+}
+
+export interface TrailerResponse {
+  results: Trailer[];
+}

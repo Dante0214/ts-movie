@@ -18,6 +18,7 @@ const MoviePage = () => {
     keyword,
     page,
   });
+  const pageCount = Math.min(data?.data.total_pages ?? 1, 500);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setPage(selected + 1);
@@ -71,17 +72,17 @@ const MoviePage = () => {
               nextLabel={"→"}
               breakLabel={"..."}
               breakClassName="text-white"
-              pageCount={500}
+              pageCount={pageCount}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}
               containerClassName="flex justify-center space-x-2"
               pageClassName="rounded overflow-hidden cursor-pointer"
-              pageLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-800 text-white hover:bg-red-500" // 새로 추가
+              pageLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-800 text-white hover:bg-red-500"
               previousClassName="rounded overflow-hidden cursor-pointer"
-              previousLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-700 text-white hover:bg-gray-600" // 새로 추가
+              previousLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-700 text-white hover:bg-gray-600"
               nextClassName="rounded overflow-hidden cursor-pointer"
-              nextLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-700 text-white hover:bg-gray-600" // 새로 추가
+              nextLinkClassName="px-3 py-1 inline-block w-full h-full bg-gray-700 text-white hover:bg-gray-600"
               activeClassName=""
               activeLinkClassName="bg-red-500"
               forcePage={page - 1}

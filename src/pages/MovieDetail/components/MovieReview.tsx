@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMovieReviewsQuery } from "../../../hooks/useMovieReviews";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
@@ -14,6 +15,8 @@ const MovieReview = ({ id }: Props) => {
     isError,
     error,
   } = useMovieReviewsQuery({ id });
+  const [visibleCount, setVisibleCount] = useState(5);
+  const visibleReviews = review?.slice(0, visibleCount) ?? [];
   if (isLoading) {
     return <Loading />;
   }
@@ -30,13 +33,35 @@ const MovieReview = ({ id }: Props) => {
   }
 
   return (
-    <div className="mt-10">
-      {review.length === 0 ? (
-        <p className="text-gray-400">등록된 리뷰가 없습니다</p>
-      ) : (
-        review.map((review) => <ReviewCard key={review.id} review={review} />)
+    <>
+      <div className="mt-10">
+        {visibleReviews.length === 0 ? (
+          <p className="text-gray-400">등록된 리뷰가 없습니다</p>
+        ) : (
+          visibleReviews.map((review) => (
+            <ReviewCard key={review.id} review={review} />
+          ))
+        )}
+      </div>
+
+      {visibleCount < (review?.length ?? 0) && (
+        <div className="text-center mt-4">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 5)}
+            className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+          >
+            더보기
+          </button>
+        </div>
       )}
-    </div>
+    </>
+    // <div className="mt-10">
+    //   {review.length === 0 ? (
+    //     <p className="text-gray-400">등록된 리뷰가 없습니다</p>
+    //   ) : (
+    //     review.map((review) => <ReviewCard key={review.id} review={review} />)
+    //   )}
+    // </div>
   );
 };
 

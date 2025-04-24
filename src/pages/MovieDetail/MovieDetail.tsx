@@ -7,14 +7,23 @@ import { FaStar } from "react-icons/fa";
 import MovieReview from "./components/MovieReview";
 import MovieRecommendation from "./components/MovieRecommendation";
 import { useState } from "react";
+import MovieTrailer from "./components/MovieTrailer";
 
 const MovieDetail = () => {
   const [tab, setTab] = useState<"review" | "recommendation">("review");
-  // const [isOpen, setIsOpen] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const { id } = useParams();
-  // const numericId = parseInt(id);
   if (!id) return <Error message="잘못된 접근입니다." />;
+  const numericId = parseInt(id);
 
   const {
     data: movie,
@@ -95,18 +104,13 @@ const MovieDetail = () => {
           </div>
           <div>
             <div className="flex gap-2 my-6">
-              {/* <button
-                className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
-                onClick={() => setIsOpen(true)}
+              <button
+                onClick={handleOpen}
+                className="px-4 py-2 rounded font-semibold transition bg-red-600 text-white hover:bg-red-700 cursor-pointer"
               >
-                유튜브 보기
+                예고편 보기
               </button>
 
-              <YoutubeModal
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-                movieId={trailer?.id}
-              /> */}
               <button
                 onClick={() => setTab("review")}
                 className={`px-4 py-2 rounded font-semibold transition cursor-pointer ${
@@ -137,6 +141,9 @@ const MovieDetail = () => {
           </div>
         </div>
       </div>
+      {open && (
+        <MovieTrailer open={open} onClose={handleClose} id={numericId} />
+      )}
     </div>
   );
 };

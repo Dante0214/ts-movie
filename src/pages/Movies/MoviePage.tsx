@@ -5,29 +5,120 @@ import Error from "../components/Error";
 import MovieCard from "../Homepage/components/Moviecard/MovieCard";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
+import { useGenreStore } from "../../stores/genreStore";
+import { Movie } from "../../types/tmdb";
 
 const MoviePage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
-  const keyword = query.get("q") ?? "";
+  const keyword = query.get("q") || "";
   const [page, setPage] = useState(1);
-  useEffect(() => {
-    setPage(1);
-  }, [keyword]);
+  const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
+  const [sortOrder, setSortOrder] = useState<
+    "default" | "popularity.asc" | "popularity.desc"
+  >("default");
+  const { genres } = useGenreStore();
+  const [filteredAndSortedMovies, setFilteredAndSortedMovies] = useState<
+    Movie[]
+  >([]);
   const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
     page,
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [keyword]);
+
+  useEffect(() => {
+    if (data?.data.results) {
+      let filtered = [...data.data.results];
+
+      if (selectedGenre !== null) {
+        filtered = filtered.filter((movie) =>
+          movie.genre_ids?.includes(selectedGenre)
+        );
+      }
+      if (sortOrder === "popularity.desc") {
+        filtered.sort((a, b) => b.popularity - a.popularity);
+      } else if (sortOrder === "popularity.asc") {
+        filtered.sort((a, b) => a.popularity - b.popularity);
+      }
+
+      setFilteredAndSortedMovies(filtered);
+    } else {
+      setFilteredAndSortedMovies([]);
+    }
+  }, [data?.data.results, selectedGenre, sortOrder]);
+
   const pageCount = Math.min(data?.data.total_pages ?? 1, 500);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setPage(selected + 1);
   };
+
+  const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const genreId =
+      event.target.value === "all" ? null : parseInt(event.target.value, 10);
+    setSelectedGenre(genreId);
+    setPage(1);
+  };
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(
+      event.target.value as "default" | "popularity.asc" | "popularity.desc"
+    );
+    setPage(1);
+  };
+  const handleReset = () => {
+    setSelectedGenre(null);
+    setSortOrder("default");
+    setPage(1);
+  };
+
   const goToSearchPage = () => {
     navigate("/movies");
   };
+
   return (
     <div className="min-h-screen bg-black px-4 md:px-16 lg:px-32">
+      <div className="flex flex-col  mb-4 ">
+        {genres && (
+          <div className="flex items-center space-x-2 justify-start w-full mb-2 mt-4">
+            <select
+              className="bg-gray-700 text-white rounded p-3 w-full sm:w-1/2 md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={selectedGenre === null ? "all" : selectedGenre}
+              onChange={handleGenreChange}
+            >
+              <option value="all">전체 장르</option>
+              {genres.map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        <div className="flex items-center space-x-2 justify-start w-full my-2">
+          <select
+            className="bg-gray-700 text-white rounded p-3 w-full sm:w-1/2 md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={sortOrder}
+            onChange={handleSortChange}
+          >
+            <option value="default">정렬 안 함</option>
+            <option value="popularity.desc">인기순 (내림차순)</option>
+            <option value="popularity.asc">인기순 (오름차순)</option>
+          </select>
+        </div>
+        <div className=" w-full sm:w-1/2 md:w-1/3 mt-4 flex justify-start">
+          <button
+            className="text-white w-full py-3 bg-blue-600 hover:bg-blue-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+            onClick={() => handleReset()}
+          >
+            리셋
+          </button>
+        </div>
+      </div>
       {isLoading ? (
         <Loading />
       ) : isError ? (
@@ -56,7 +147,7 @@ const MoviePage = () => {
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
-            {data?.data.results.map((movie) => (
+            {filteredAndSortedMovies.map((movie) => (
               <div
                 key={movie.id}
                 onClick={() => navigate(`/movies/${movie.id}`)}

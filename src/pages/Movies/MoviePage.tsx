@@ -61,14 +61,12 @@ const MoviePage = () => {
     const genreId =
       event.target.value === "all" ? null : parseInt(event.target.value, 10);
     setSelectedGenre(genreId);
-    setPage(1);
   };
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOrder(
       event.target.value as "default" | "popularity.asc" | "popularity.desc"
     );
-    setPage(1);
   };
   const handleReset = () => {
     setSelectedGenre(null);

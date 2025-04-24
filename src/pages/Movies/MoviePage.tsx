@@ -82,7 +82,7 @@ const MoviePage = () => {
 
   return (
     <div className="min-h-screen bg-black px-4 md:px-16 lg:px-32">
-      <div className="flex flex-col  mb-4 ">
+      <div className="flex flex-col  mb-4 lg:px-4 ">
         {genres && (
           <div className="flex items-center space-x-2 justify-start w-full mb-2 mt-4">
             <select
@@ -146,7 +146,7 @@ const MoviePage = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4 ">
             {filteredAndSortedMovies.map((movie) => (
               <div
                 key={movie.id}
